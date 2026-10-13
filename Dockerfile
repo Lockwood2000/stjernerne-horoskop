@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc libc6-dev &
 COPY stjernerne-source.zip /tmp/stjernerne-source.zip
 RUN python -m zipfile -e /tmp/stjernerne-source.zip /src
 WORKDIR /src/stjernerne-chart
-RUN python scripts/build_native.py
+RUN python scripts/build_native.py && python scripts/verify_native_threads.py
 
 FROM python:3.12-slim
 WORKDIR /app
