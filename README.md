@@ -20,3 +20,5 @@ Historiske tidszoner før 1970 kræver konkret kontrol; Placidus understøttes
 kun under 66° nord/syd. Ingen personlige fødselsdata er med i kildepakken.
 
 Mine horoskoper: lokalt bibliotek med tidskandidater, livsbegivenheder, backup/import og papirkurv. Ingen konto eller serverlagring.
+
+Forenklet navigation med seks horoskopvalg, sammenfoldelige indstillinger og stort horoskophjul med zoom. Mobilvisningen giver hjulet mere plads.
