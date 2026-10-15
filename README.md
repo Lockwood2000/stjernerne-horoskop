@@ -15,7 +15,7 @@ arkivet. Stjernernes brandrettigheder gives ikke videre. Ingen garanti.
 
 
 Frontend: HTML/CSS/JavaScript/SVG. Server: Python 3.12/FastAPI. Beregning:
-Swiss Ephemeris 2.10.03 med lokale efemerider. 123 Python- og 21 JavaScript-tests
+Swiss Ephemeris 2.10.03 med lokale efemerider. 145 Python- og 27 JavaScript-tests
 bestået før udgivelse. Ingen API-nøgler eller lagring af fødselsdata på serveren.
 
 
@@ -32,4 +32,7 @@ Forenklet navigation med seks horoskopvalg, sammenfoldelige indstillinger og sto
 
 
 
-Vælg en kendt dansker: søg i 189 gennemgåede arkivposter, se rating og kilder, og udfyld fødselsoplysninger automatisk. Alternative tider bevares som separate valg. Ukendte tider (X) udfyldes ikke; datoer før 1900 og manglende koordinater markeres som utilgængelige. Se docs/FAMOUS-DANES.md i kildepakken.
+Vælg en kendt dansker: søg i 189 gennemgåede arkivposter, se rating og kilder, og udfyld fødselsoplysninger automatisk. Alternative tider bevares som separate valg. Ukendte tider (X) udfyldes ikke; datoer før 1500 og manglende koordinater markeres som utilgængelige. Se docs/FAMOUS-DANES.md i kildepakken.
+
+
+Kündigs metode: beregn snittidspunkter omkring originalen, vis dem i hjulet, behold dem som tidskandidater og sammenlign med livsbegivenheder. Sekunder bevares i bibliotek og backup/import. Traditionelle MC/IC-herskere og ekliptiske meridiankonjunktioner; se docs/KUNDIG.md for metode og afgrænsning. Ingen Bonatti-snit eller Kündig-solnøgle i denne version.
