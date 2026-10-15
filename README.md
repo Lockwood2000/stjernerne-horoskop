@@ -15,7 +15,7 @@ arkivet. Stjernernes brandrettigheder gives ikke videre. Ingen garanti.
 
 
 Frontend: HTML/CSS/JavaScript/SVG. Server: Python 3.12/FastAPI. Beregning:
-Swiss Ephemeris 2.10.03 med lokale efemerider. 175 Python- og 31 JavaScript-tests
+Swiss Ephemeris 2.10.03 med lokale efemerider. 207 Python- og 33 JavaScript-tests
 bestået før udgivelse. Ingen API-nøgler eller lagring af fødselsdata på serveren.
 
 
@@ -39,3 +39,6 @@ Kündigs metode: beregn snittidspunkter omkring originalen, vis dem i hjulet, be
 
 
 Kündig-guiden har tre trin: find snit, vælg tidspunkter, og sammenlign med livsbegivenheder. Startknappen vælger Kündig-snit; næste knap vælger den individuelle solnøgle. Ordliste, tydeligt næste trin og hjælp til tabellen gør forløbet lettere at følge. Manuel tidsflytning er valgfri. Se docs/USABILITY.md for gennemgangen og dens grænser; der er ikke foretaget fuld numerisk sammenligning med ARGUS eller en brugertest med en uøvet person.
+
+
+Kündig · hel grad og ARGUS · centreret kan nu vælges til progressioner og begivenheder. Begge solnøgler, AC og MC kan sammenlignes på samme dato. Gemning og backup/import bevarer valget; gamle Kündig-valg er fortsat hel grad. 207 Python-tests og 33 JavaScript-tests bestod. Se docs/SOLAR-KEY-VARIANTS.md og docs/CROSSCHECK.md i kildepakken for beregningskonventioner, referencekontrol og begrænsninger.
