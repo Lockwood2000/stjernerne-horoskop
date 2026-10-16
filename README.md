@@ -1,44 +1,54 @@
-# Stjernerne · Horoskopgenerator
+# Stjernerne Chart Workshop · English test
 
+A separate English edition with the same design, wheel and numerical calculations.
+The Danish public birth-data archive is excluded. No saved production charts are copied.
 
-Selvstændig dansk horoskopgenerator med fødselshoroskop, transitter med afspilning,
-solretur, sekundære progressioner, synastri, fødselstidskorrektion med begivenhedssammenligning, Chiron, Ceres, Eris, Haumea og Makemake.
+Includes birth charts, transit playback, solar returns, secondary progressions,
+synastry, birth-time rectification, Kündig/Bonatti sections, both solar-key variants,
+candidate/event comparison and a local library with backup/import.
 
+See docs/ENGLISH-STAGING.md for isolation, numerical parity, test scope and hosting.
+The demonstration uses fictional birth details in London.
 
-Hele den redigerbare kildekode, data, tests, byggevejledning og licensnotices
-ligger i **stjernerne-source.zip**. Udpak arkivet for at udvikle videre.
-Dockerfile bygger præcis denne kildepakke, og den kørende app tilbyder den via `/source`.
+## Run locally
 
+Requires Python 3.12 and a C compiler. From this directory:
 
-AGPL-3.0 med bevarede tredjepartsnotices; se LICENSE, COPYING og THIRD_PARTY.md i
-arkivet. Stjernernes brandrettigheder gives ikke videre. Ingen garanti.
+```sh
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements-dev.lock
+.venv/bin/python scripts/build_native.py
+PUBLIC_ORIGIN=http://127.0.0.1:8771 .venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8771 --no-access-log --no-proxy-headers
+```
 
+Open http://127.0.0.1:8771 . No API key is required. Calculations are not stored
+on the server. Charts are saved in the browser only when the user chooses Save.
 
-Frontend: HTML/CSS/JavaScript/SVG. Server: Python 3.12/FastAPI. Beregning:
-Swiss Ephemeris 2.10.03 med lokale efemerider. 207 Python- og 33 JavaScript-tests
-bestået før udgivelse. Ingen API-nøgler eller lagring af fødselsdata på serveren.
+## Test and package
 
+```sh
+.venv/bin/python -m pytest -q
+node --test tests/*.test.mjs
+.venv/bin/python scripts/package_source.py
+```
 
-Render: separat Docker-webservice, Free, port 8765, health path `/api/health`.
-Appen aflæser Render-URL automatisk. Gratis drift har kvoter og kan gå i dvale.
-Historiske tidszoner før 1970 kræver konkret kontrol; Placidus understøttes
-kun under 66° nord/syd. Kildepakken indeholder 189 offentlige arkivposter fra Astrologi-Arkaden; ingen private brugerdata.
+The ZIP uses an explicit allowlist excluding credentials, environments, private files,
+browser libraries and the removed Danish archive. deploy/Dockerfile builds this ZIP.
 
+## Licence and precision
 
-Mine horoskoper: lokalt bibliotek med tidskandidater, livsbegivenheder, backup/import og papirkurv. Ingen konto eller serverlagring.
+AGPL-3.0-or-later with retained third-party notices: LICENSE, COPYING, THIRD_PARTY.md.
+Brand and third-party data rights remain with their owners. The running app offers
+corresponding source at /source. Swiss Ephemeris 2.10.03, tropical geocentric apparent
+positions, Placidus and True Node. Historical time zones require source checking,
+particularly before 1970. Dates are Gregorian; Placidus is limited to latitudes below
+66 degrees north/south. Rectification candidates do not prove an actual birth time.
+The published ARGUS reference has minute precision; a direct key/angle comparison
+is pending. There is no automatic personal interpretation.
 
+## Separate deployment
 
-Forenklet navigation med seks horoskopvalg, sammenfoldelige indstillinger og stort horoskophjul med zoom. Mobilvisningen giver hjulet mere plads.
-
-
-
-Vælg en kendt dansker: søg i 189 gennemgåede arkivposter, se rating og kilder, og udfyld fødselsoplysninger automatisk. Alternative tider bevares som separate valg. Ukendte tider (X) udfyldes ikke; datoer før 1500 og manglende koordinater markeres som utilgængelige. Se docs/FAMOUS-DANES.md i kildepakken.
-
-
-Kündigs metode: beregn snittidspunkter omkring originalen, vis dem i hjulet, behold dem som tidskandidater og sammenlign med livsbegivenheder. Sekunder bevares i bibliotek og backup/import. Traditionelle MC/IC-herskere og ekliptiske meridiankonjunktioner; se docs/KUNDIG.md for metode og afgrænsning. Kündigs individuelle solnøgle kan vælges til progressive akser og begivenhedssammenligning. Nøglen bruger den hele zodiakgrad, fødselssolen står i, omregnet til rektascension. Metodevalg følger bibliotek og backup/import; ældre gemte valg bevares. Se docs/SOLAR-KEY.md for præcis konvention og afgrænsning. Bonatti-snit kan vises alene eller sammen med Kündig-snit. Aksekonjunktioner for Solen til Pluto markeres med planet og AC/DC/MC/IC. Sammenfald samles til ét sekund med begge mærker; mærkerne følger kandidater, begivenhedstabeller og backup/import. Se docs/BONATTI.md for metodekonvention og kontrol.
-
-
-Kündig-guiden har tre trin: find snit, vælg tidspunkter, og sammenlign med livsbegivenheder. Startknappen vælger Kündig-snit; næste knap vælger den individuelle solnøgle. Ordliste, tydeligt næste trin og hjælp til tabellen gør forløbet lettere at følge. Manuel tidsflytning er valgfri. Se docs/USABILITY.md for gennemgangen og dens grænser; der er ikke foretaget fuld numerisk sammenligning med ARGUS eller en brugertest med en uøvet person.
-
-
-Kündig · hel grad og ARGUS · centreret kan nu vælges til progressioner og begivenheder. Begge solnøgler, AC og MC kan sammenlignes på samme dato. Gemning og backup/import bevarer valget; gamle Kündig-valg er fortsat hel grad. 207 Python-tests og 33 JavaScript-tests bestod. Se docs/SOLAR-KEY-VARIANTS.md og docs/CROSSCHECK.md i kildepakken for beregningskonventioner, referencekontrol og begrænsninger.
+Use branch english-test and a separate Free Docker service, keeping production on main.
+Port 8765, health path /api/health. The app adopts RENDER_EXTERNAL_URL for its origin.
+No paid service or database is needed. Render Free has shared quotas and sleeps after
+inactivity. This test app is not linked from the production website or its menu.
