@@ -82,3 +82,9 @@ identity and four course-informed study rooms: Chart Synthesis, Your Year Ahead,
 Prenatal Lunation and Relationship Dynamics. Notes and the second natal chart
 travel with saved/exported study files. Open `/university#study-rooms` locally.
 See [methods, sources and limitations](docs/UNIVERSITY-WORKSHOPS.md).
+
+### Installable Institut student app
+
+Open `/institut` and choose **Installér app**. The student app has its own icon
+and standalone window, without login. Internet is required; local saved studies
+can be backed up with the existing JSON export. See `docs/INSTITUT-APP.md`.
