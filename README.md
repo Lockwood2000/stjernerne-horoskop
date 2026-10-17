@@ -22,6 +22,11 @@ chart, current study room, reference tables and personal notes. Choose school
 colours or monochrome, then print or save as PDF. See the
 [print edition notes](docs/SCHOOL_PRINT.md) for content and layout details.
 
+Placidus, Equal House and Regiomontanus, secondary progressions, true solar arc
+and relocated solar returns are available in both school entries. Date, place
+and method choices follow saved work and printed study pages. See the
+[timing conventions and verification](docs/SCHOOL-TIMING.md).
+
 ## Run locally
 
 Requires Python 3.12 and a C compiler. From this directory:
