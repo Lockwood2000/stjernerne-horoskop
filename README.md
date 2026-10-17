@@ -17,6 +17,11 @@ See [the current status](docs/SCHOOL-STATUS.md) for coverage, conventions,
 reference checks and unfinished features. [SCHOOL-BASELINE.json](docs/SCHOOL-BASELINE.json)
 records the original source and hashes. Earlier staging documents describe that baseline.
 
+Both school workspaces include **Print / PDF**: a branded A4 preview for the
+chart, current study room, reference tables and personal notes. Choose school
+colours or monochrome, then print or save as PDF. See the
+[print edition notes](docs/SCHOOL_PRINT.md) for content and layout details.
+
 ## Run locally
 
 Requires Python 3.12 and a C compiler. From this directory:
