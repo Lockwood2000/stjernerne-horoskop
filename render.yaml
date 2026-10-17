@@ -1,14 +1,10 @@
-# Dedicated evolutionary service. Confirm included quotas and $0 extra cost
-# in the existing workspace before creating it. No database or paid disk.
 services:
   - type: web
-    name: stjernerne-evolution
+    name: stjernerne-combined-trial
     runtime: docker
-    plan: free
+    plan: 0.5c-512mb
     region: frankfurt
     healthCheckPath: /api/health
     envVars:
       - key: PORT
         value: '8765'
-      - key: EVOLUTION_HOME
-        value: '1'
