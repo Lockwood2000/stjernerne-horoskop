@@ -35,7 +35,7 @@ Bandwidth, build quotas and applicable taxes are separate from base compute.
 ### Hard budget constraint — paid deployment held
 
 The user subsequently required a hard maximum of $7/month, with no automatic
-top-ups or extra usage charges. No paid service has been created. The workspace's
+top-ups or extra usage charges. No paid Render service has been created. The workspace's
 build-pipeline spend limit was visibly verified as $0, but Render's documented
 traffic overage charges ($0.15/GB beyond 5 GB on Hobby) have no verified equivalent
 hard cap. A fixed compute price is not a total-invoice cap. The Render blueprint
@@ -61,3 +61,9 @@ skips identical records. This is not cloud synchronization or automatic migratio
 The host and adaptations are AGPL-3.0-or-later. Every original archive retains its
 LICENSE, COPYING and third-party notices, including Swiss Ephemeris and font/data
 licences. `/source` offers all five archives required to reproduce the running app.
+
+## HostUp Nano trial
+
+The five preserved interfaces also run together on a monthly Ubuntu 24.04 VPS. The optional deployment files in `deploy/hostup/` use Docker Compose, a loopback-only application and Caddy HTTPS. Put the five source ZIPs and Dockerfile alongside those files, copy `trial.env.example` to `trial.env`, and set the approved public hostname. Run `install.sh` only on the new, approved server after checking the provider price, manual billing and fixed included traffic. No credentials or personal chart files are included.
+
+The transfer helper now ignores stale asynchronous file inspections when files or the language destination change rapidly, keeping the preview and actual import consistent. The four original calculation packages are unchanged.
