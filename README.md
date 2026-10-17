@@ -64,6 +64,6 @@ licences. `/source` offers all five archives required to reproduce the running a
 
 ## HostUp Nano trial
 
-The five preserved interfaces also run together on a monthly Ubuntu 24.04 VPS. The optional deployment files in `deploy/hostup/` use Docker Compose, a loopback-only application and Caddy HTTPS. Put the five source ZIPs and Dockerfile alongside those files, copy `trial.env.example` to `trial.env`, and set the approved public hostname. Run `install.sh` only on the new, approved server after checking the provider price, manual billing and fixed included traffic. No credentials or personal chart files are included.
+The five preserved interfaces also run together on a monthly Ubuntu 24.04 VPS. The optional deployment files inside `hostup-deployment.zip` use Docker Compose, a loopback-only application and Caddy HTTPS. Put the five source ZIPs and Dockerfile alongside those files, copy `trial.env.example` to `trial.env`, and set the approved public hostname. Run `install.sh` only on the new, approved server after checking the provider price, manual billing and fixed included traffic. No credentials or personal chart files are included.
 
 The transfer helper now ignores stale asynchronous file inspections when files or the language destination change rapidly, keeping the preview and actual import consistent. The four original calculation packages are unchanged.
