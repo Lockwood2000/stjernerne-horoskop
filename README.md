@@ -32,6 +32,19 @@ or local benchmark does not establish performance on that paid allocation. Check
 the actual Render compute setting, cgroup observations, latency and memory report.
 Bandwidth, build quotas and applicable taxes are separate from base compute.
 
+### Hard budget constraint — paid deployment held
+
+The user subsequently required a hard maximum of $7/month, with no automatic
+top-ups or extra usage charges. No paid service has been created. The workspace's
+build-pipeline spend limit was visibly verified as $0, but Render's documented
+traffic overage charges ($0.15/GB beyond 5 GB on Hobby) have no verified equivalent
+hard cap. A fixed compute price is not a total-invoice cap. The Render blueprint
+therefore defaults to Free; this is not permission to deploy into a card-backed
+workspace or to enable the paid plan. Paid measurement requires resolving this
+constraint first. Local measurements are retained separately and must not be
+represented as a paid Render benchmark. See https://render.com/docs/outbound-bandwidth
+and https://render.com/docs/build-pipeline .
+
 ## Transfer guarantees and limits
 
 Original browser storage is origin-bound. The old sites cannot be read from the

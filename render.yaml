@@ -2,7 +2,9 @@ services:
   - type: web
     name: stjernerne-combined-trial
     runtime: docker
-    plan: 0.5c-512mb
+    # The requested paid test is held: Render has no verified hard $7 total cap.
+    # Keep infrastructure configuration free by default; no automatic upgrade.
+    plan: free
     region: frankfurt
     healthCheckPath: /api/health
     envVars:
