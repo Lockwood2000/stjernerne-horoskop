@@ -10,6 +10,16 @@ The assembly script changes root-relative browser URLs only. Existing designs,
 teaching profiles, timing methods, archive picker, print and download features remain.
 Institute PWA URLs and scope are adapted to `/school/institut`.
 
+The 18 October school refresh includes the original Institut mobile home screen,
+four bottom-navigation destinations and recent studies. It uses the existing
+form controls, IndexedDB records and notes. Only hosting paths/profile navigation
+are adapted; the calculation code and stored-record schema remain unchanged.
+
+The live trial runs on the existing HostUp Nano VPS, with no extra service or
+resource upgrade. The original Render budget discussion below is retained as
+history; the HostUp trial is paid through 16 November and scheduled to end on
+17 November 2026. Deployment helpers do not change billing or renew the trial.
+
 ## Reproduce
 
 Unzip `host-source.zip`, then put the other four `*-source.zip` archives in `inputs/`.
@@ -35,7 +45,7 @@ Bandwidth, build quotas and applicable taxes are separate from base compute.
 ### Hard budget constraint — paid deployment held
 
 The user subsequently required a hard maximum of $7/month, with no automatic
-top-ups or extra usage charges. No paid Render service has been created. The workspace's
+top-ups or extra usage charges. No paid service has been created. The workspace's
 build-pipeline spend limit was visibly verified as $0, but Render's documented
 traffic overage charges ($0.15/GB beyond 5 GB on Hobby) have no verified equivalent
 hard cap. A fixed compute price is not a total-invoice cap. The Render blueprint
@@ -61,9 +71,3 @@ skips identical records. This is not cloud synchronization or automatic migratio
 The host and adaptations are AGPL-3.0-or-later. Every original archive retains its
 LICENSE, COPYING and third-party notices, including Swiss Ephemeris and font/data
 licences. `/source` offers all five archives required to reproduce the running app.
-
-## HostUp Nano trial
-
-The five preserved interfaces also run together on a monthly Ubuntu 24.04 VPS. The optional deployment files inside `hostup-deployment.zip` use Docker Compose, a loopback-only application and Caddy HTTPS. Put the five source ZIPs and Dockerfile alongside those files, copy `trial.env.example` to `trial.env`, and set the approved public hostname. Run `install.sh` only on the new, approved server after checking the provider price, manual billing and fixed included traffic. No credentials or personal chart files are included.
-
-The transfer helper now ignores stale asynchronous file inspections when files or the language destination change rapidly, keeping the preview and actual import consistent. The four original calculation packages are unchanged.
