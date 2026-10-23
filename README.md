@@ -1,6 +1,6 @@
 # ROOTS & SKY — isolated Railway deployment
 
-This directory is a deployment bundle for a **new, separate ROOTS & SKY service**. It does not modify or replace Institut, its Railway service, domain, environment variables or branch. Nothing here has been uploaded or deployed.
+This directory is a deployment bundle for a **separate ROOTS & SKY service**. It does not modify or replace Institut, its Railway service, domain, environment variables or branch.
 
 ## Payload and transport
 
@@ -10,8 +10,8 @@ Included are only this application, its seven existing illustrations, browser ca
 
 ## Dedicated deployment
 
-1. Create a new repository, or a dedicated `roots-and-sky-railway` branch whose root contains only this bundle. Do not connect the Institut production branch or change its service.
-2. Upload **all** `payload.part-*` files, `payload-manifest.json`, `restore_payload.py`, `server.py` and `Dockerfile` at the repository root. The README, packaging script and tests can accompany them. `.dockerignore` is recommended but optional: Docker copies only explicitly named inputs.
+1. Use the dedicated `roots-and-sky` branch of `Lockwood2000/stjernerne-horoskop`, whose root contains only this bundle. Do not connect the Institut production branch or change its service.
+2. Upload **all** `payload.part-*` files, `payload-manifest.json`, `restore_payload.py`, `server.py` and `Dockerfile` at the repository root. Keep each browser-upload commit below 25 MB; commit each payload part separately and deploy only after all parts are present. The README, packaging script and tests can accompany them. `.dockerignore` is recommended but optional: Docker copies only explicitly named inputs.
 3. In Railway, create a new service connected to that repository/branch. Select Dockerfile as the builder in Railway’s service settings, with the Dockerfile at the root. Set the health-check path to `/` and the timeout to 120 seconds in the UI. New services do not support the deprecated configuration-as-code workflow, so this bundle deliberately does not rely on a `railway.json` file. Do not create a second service by modifying Institut's existing service settings. The service needs no secrets or API keys.
 4. Railway provides `PORT`; the server binds to `0.0.0.0` on that port and defaults to 8080 locally. The health check requests `/`.
 5. Generate the new service's own public Railway domain, then verify it over HTTPS before sharing. Use only a verified address whose complete URL passes the user's link rule. This bundle contains no invented production URL. A custom domain can be configured for this new service separately.
