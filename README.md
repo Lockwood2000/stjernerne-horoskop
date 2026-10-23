@@ -1,44 +1,49 @@
-# Stjernerne · Horoskopgenerator
+# ROOTS & SKY — isolated Railway deployment
 
+This directory is a deployment bundle for a **new, separate ROOTS & SKY service**. It does not modify or replace Institut, its Railway service, domain, environment variables or branch. Nothing here has been uploaded or deployed.
 
-Selvstændig dansk horoskopgenerator med fødselshoroskop, transitter med afspilning,
-solretur, sekundære progressioner, synastri, fødselstidskorrektion med begivenhedssammenligning, Chiron, Ceres, Eris, Haumea og Makemake.
+## Payload and transport
 
+The static payload is an exact byte-for-byte snapshot of the existing ROOTS & SKY `dist/` directory, including both public corresponding-source downloads. `payload-manifest.json` records every file's SHA256 and size, the complete archive SHA256 and every chunk's checksum. `payload.part-*` are deterministic tar/gzip slices of at most 20 MiB each, suitable for the browser's per-file upload limit. The archive is reconstructed and verified during the Docker build; no archive or part files are exposed by the web server.
 
-Hele den redigerbare kildekode, data, tests, byggevejledning og licensnotices
-ligger i **stjernerne-source.zip**. Udpak arkivet for at udvikle videre.
-Dockerfile bygger præcis denne kildepakke, og den kørende app tilbyder den via `/source`.
+Included are only this application, its seven existing illustrations, browser calculation runtime, offline data, licences and published source archives. No hosting identity, repository metadata, credentials, customer reports or other school interfaces are included. Fictional regression fixtures already in the corresponding-source archive remain part of that unchanged archive.
 
+## Dedicated deployment
 
-AGPL-3.0 med bevarede tredjepartsnotices; se LICENSE, COPYING og THIRD_PARTY.md i
-arkivet. Stjernernes brandrettigheder gives ikke videre. Ingen garanti.
+1. Create a new repository, or a dedicated `roots-and-sky-railway` branch whose root contains only this bundle. Do not connect the Institut production branch or change its service.
+2. Upload **all** `payload.part-*` files, `payload-manifest.json`, `restore_payload.py`, `server.py` and `Dockerfile` at the repository root. The README, packaging script and tests can accompany them. `.dockerignore` is recommended but optional: Docker copies only explicitly named inputs.
+3. In Railway, create a new service connected to that repository/branch. Select Dockerfile as the builder in Railway’s service settings, with the Dockerfile at the root. Set the health-check path to `/` and the timeout to 120 seconds in the UI. New services do not support the deprecated configuration-as-code workflow, so this bundle deliberately does not rely on a `railway.json` file. Do not create a second service by modifying Institut's existing service settings. The service needs no secrets or API keys.
+4. Railway provides `PORT`; the server binds to `0.0.0.0` on that port and defaults to 8080 locally. The health check requests `/`.
+5. Generate the new service's own public Railway domain, then verify it over HTTPS before sharing. Use only a verified address whose complete URL passes the user's link rule. This bundle contains no invented production URL. A custom domain can be configured for this new service separately.
 
+## Local checks
 
-Frontend: HTML/CSS/JavaScript/SVG. Server: Python 3.12/FastAPI. Beregning:
-Swiss Ephemeris 2.10.03 med lokale efemerider. 207 Python- og 33 JavaScript-tests
-bestået før udgivelse. Ingen API-nøgler eller lagring af fødselsdata på serveren.
+Use Python 3.12 or later. No third-party Python packages are needed.
 
+```sh
+python3 -m unittest -v test_bundle.py
+python3 restore_payload.py
+PORT=8080 python3 server.py
+```
 
-Render: separat Docker-webservice, Free, port 8765, health path `/api/health`.
-Appen aflæser Render-URL automatisk. Gratis drift har kvoter og kan gå i dvale.
-Historiske tidszoner før 1970 kræver konkret kontrol; Placidus understøttes
-kun under 66° nord/syd. Kildepakken indeholder 189 offentlige arkivposter fra Astrologi-Arkaden; ingen private brugerdata.
+After reconstruction, open `http://localhost:8080/`. Reconstruction refuses to overwrite an existing `dist` directory. For a test directory instead, pass `--destination /tmp/roots-sky-verified-dist` to `restore_payload.py` (choose a path that does not already exist).
 
+With Docker available:
 
-Mine horoskoper: lokalt bibliotek med tidskandidater, livsbegivenheder, backup/import og papirkurv. Ingen konto eller serverlagring.
+```sh
+docker build -t roots-and-sky .
+docker run --rm -p 8080:8080 -e PORT=8080 roots-and-sky
+```
 
+The final container runs as a dedicated unprivileged user. It serves only `dist`, returns correct JavaScript-module and WebAssembly MIME types, disallows directory listings, traversal, hidden paths and symlinks, and disables request logging. Assets are revalidated using content SHA256 ETags so a new deployment cannot leave a stale unversioned application cached. Birth details are processed by the existing browser worker; the server supplies static files only.
 
-Forenklet navigation med seks horoskopvalg, sammenfoldelige indstillinger og stort horoskophjul med zoom. Mobilvisningen giver hjulet mere plads.
+## Refreshing the bundle
 
+Run `package_payload.py` with the reviewed app's `dist` directory as its source. Do not pass a repository root. Regenerate the application's corresponding-source archives in its own source project first if its implementation has changed. Then rerun the tests and commit all changed chunks and the manifest together.
 
+```sh
+python3 package_payload.py /absolute/path/to/roots-and-sky/dist
+python3 -m unittest -v test_bundle.py
+```
 
-Vælg en kendt dansker: søg i 189 gennemgåede arkivposter, se rating og kilder, og udfyld fødselsoplysninger automatisk. Alternative tider bevares som separate valg. Ukendte tider (X) udfyldes ikke; datoer før 1500 og manglende koordinater markeres som utilgængelige. Se docs/FAMOUS-DANES.md i kildepakken.
-
-
-Kündigs metode: beregn snittidspunkter omkring originalen, vis dem i hjulet, behold dem som tidskandidater og sammenlign med livsbegivenheder. Sekunder bevares i bibliotek og backup/import. Traditionelle MC/IC-herskere og ekliptiske meridiankonjunktioner; se docs/KUNDIG.md for metode og afgrænsning. Kündigs individuelle solnøgle kan vælges til progressive akser og begivenhedssammenligning. Nøglen bruger den hele zodiakgrad, fødselssolen står i, omregnet til rektascension. Metodevalg følger bibliotek og backup/import; ældre gemte valg bevares. Se docs/SOLAR-KEY.md for præcis konvention og afgrænsning. Bonatti-snit kan vises alene eller sammen med Kündig-snit. Aksekonjunktioner for Solen til Pluto markeres med planet og AC/DC/MC/IC. Sammenfald samles til ét sekund med begge mærker; mærkerne følger kandidater, begivenhedstabeller og backup/import. Se docs/BONATTI.md for metodekonvention og kontrol.
-
-
-Kündig-guiden har tre trin: find snit, vælg tidspunkter, og sammenlign med livsbegivenheder. Startknappen vælger Kündig-snit; næste knap vælger den individuelle solnøgle. Ordliste, tydeligt næste trin og hjælp til tabellen gør forløbet lettere at følge. Manuel tidsflytning er valgfri. Se docs/USABILITY.md for gennemgangen og dens grænser; der er ikke foretaget fuld numerisk sammenligning med ARGUS eller en brugertest med en uøvet person.
-
-
-Kündig · hel grad og ARGUS · centreret kan nu vælges til progressioner og begivenheder. Begge solnøgler, AC og MC kan sammenlignes på samme dato. Gemning og backup/import bevarer valget; gamle Kündig-valg er fortsat hel grad. 207 Python-tests og 33 JavaScript-tests bestod. Se docs/SOLAR-KEY-VARIANTS.md og docs/CROSSCHECK.md i kildepakken for beregningskonventioner, referencekontrol og begrænsninger.
+Determinism uses sorted file paths, fixed tar ownership/modes/timestamps, and gzip without a filename or current timestamp. The Docker base is the standard `python:3.12-slim` tag and can receive upstream security updates; full image-byte reproducibility is not claimed.

@@ -1,0 +1,6 @@
+*
+!Dockerfile
+!server.py
+!restore_payload.py
+!payload-manifest.json
+!payload.part-*
